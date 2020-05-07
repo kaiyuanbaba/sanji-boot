@@ -1,0 +1,441 @@
+<style>
+    .select2-container--default.select2-container--focus .select2-selection--multiple {
+        border: solid #FFF 0px;
+        border-bottom: 2px solid #eee;
+        outline: 0;
+    }
+    
+    .select2-container--default .select2-selection--multiple {
+        margin-top: 5px;
+        background-color: white;
+        border-radius: 4px;
+        border: solid #FFF 0px;
+        border-bottom: 2px solid #eee;
+        cursor: text;
+    }
+    
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #FFFFFF;
+        border: 2px solid #eee;
+        border-radius: 4px;
+        cursor: default;
+        float: left;
+        margin-right: 5px;
+        margin-top: 5px;
+        padding: 0 5px;
+    }
+    
+    .upload_warp_img_div_del {
+        position: absolute;
+        top: 6px;
+        width: 16px;
+        right: 4px;
+    }
+    
+    .upload_warp_img_div_top {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 30px;
+        background-color: rgba(0, 0, 0, 0.4);
+        line-height: 30px;
+        text-align: left;
+        color: #fff;
+        font-size: 12px;
+        text-indent: 4px;
+    }
+    
+    .upload_warp_img_div_text {
+        white-space: nowrap;
+        width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .upload_warp_img_div img {
+        max-width: 100%;
+        max-height: 100%;
+        vertical-align: middle;
+    }
+    
+    .upload_warp_img_div {
+        position: relative;
+        height: 100px;
+        width: 120px;
+        border: 1px solid #2196F3;
+        margin: 0px 30px 10px 0px;
+        float: left;
+        line-height: 100px;
+        display: table-cell;
+        text-align: center;
+        background-color: #eee;
+        cursor: pointer;
+    }
+    
+    .upload_warp_img {
+        border-top: 1px solid #D2D2D2;
+        padding: 14px 0 0 14px;
+        overflow: hidden
+    }
+    
+    .upload_warp_text {
+        text-align: left;
+        margin-bottom: 10px;
+        padding-top: 10px;
+        text-indent: 14px;
+        border-top: 1px solid #2196F3;
+        font-size: 14px;
+    }
+    
+    .upload_warp_right {
+        float: left;
+        width: 56%;
+        margin-left: 2%;
+        height: 100%;
+        border: 2px dashed #2196F3;
+        border-radius: 4px;
+        line-height: 130px;
+        color: #2196F3;
+    }
+    
+    .upload_warp_left img {
+        margin-top: 32px;
+    }
+    
+    .upload_warp_left {
+        float: left;
+        width: 40%;
+        height: 100%;
+        border: 2px dashed #2196F3;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .upload_warp {
+        margin: 14px;
+        height: 130px;
+    }
+    
+    .upload {
+        border: 1px solid #2196F3;
+        background-color: #fff;
+        width: 800px;
+        border-radius: 4px;
+    }
+    
+    .hello {
+        width: 800px;
+        margin-left: 27%;
+        text-align: center;
+    }
+    
+    .ml20 {
+        margin-left: 20px;
+    }
+    
+    .c-red {
+        color: red;
+    }
+</style>
+
+<script src="/plugins/upfile/cupload.js"></script>
+<div id="createDialog" class="crudDialog">
+    <form id="createForm" method="post">
+        <div id="add" class="form-group">
+            <label for="username">帐号</label>
+            <input id="username" type="text" class="form-control" name="username" maxlength="20" />
+        </div>
+        <div id="add" class="form-group">
+            <label for="username">密码</label>
+            <input id="password" type="password"  autocomplete="off" class="form-control" name="username" maxlength="10" />
+        </div>
+        <div id="update" class="form-group">
+            <label for="nickname">昵称</label>
+            <input id="nickname" type="text" class="form-control" name="nickname" maxlength="20" />
+        </div>
+        <!--        <div class="form-group">-->
+        <!--            <label for="avatar">头像</label>-->
+        <!--            <input id="avatar" type="text" class="form-control" name="avatar" maxlength="50"/>-->
+        <!--        </div>-->
+        <div class="form-group">
+            <label for="role" class="active" style="height: 36px;">角色</label>
+            <select id="role" name="roleSet" class=" select2" data-placeholder="选择角色" style="width: 100%;">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="parent" class="active" style="height: 36px;">所属上级</label>
+            <!--            select22-->
+            <select id="parent" name="parent" class="select1" data-placeholder="所属上级" style="width: 100%;">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="phone">电话</label>
+            <input id="phone" type="text" class="form-control" name="phone" maxlength="20" maxlength="12" data-inputmask='"mask": "(999) 9999-9999"' data-mask/>
+        </div>
+        <div class="form-group">
+            <label for="email">邮箱</label>
+            <input id="email" type="text" class="form-control" name="email" maxlength="50" />
+        </div>
+        <div>
+            <label style="color:#999">性别: &nbsp;</label>
+            <div class="radio radio-inline radio-info">
+                <input id="sex_1" type="radio" name="gender" value="MAN">
+                <label for="sex_1">男 </label>
+            </div>
+            <div class="radio radio-inline radio-danger">
+                <input id="sex_0" type="radio" name="gender" value="WO_MAN">
+                <label for="sex_0">女 </label>
+            </div>
+        </div>
+        <br/>
+        <div>
+            <label style="color:#999">状态: &nbsp;</label>
+            <div class="radio radio-inline radio-success">
+                <input id="status_0" type="radio" name="status" value="NORMAL">
+                <label for="status_0">正常 </label>
+            </div>
+            <div class="radio radio-inline radio-danger">
+                <input id="status_1" type="radio" name="status" value="ABNORMAL">
+                <label for="status_1">异常 </label>
+            </div>
+            <div class="radio radio-inline">
+                <input id="status_2" type="radio" name="status" value="FROZEN">
+                <label for="status_2">冻结 </label>
+            </div>
+        </div>
+        <div>
+            <label for="avatar">头像</label>
+            <input type="file" id="uploadFile" />
+        </div>
+        <div class="form-group text-right dialog-buttons">
+            <a class="waves-effect waves-button" href="javascript:;" onclick="createSubmit();">保存</a>
+            <a class="waves-effect waves-button" href="javascript:;" onclick="createDialog.close();">取消</a>
+        </div>
+
+    </form>
+</div>
+<script>
+    var image = '';
+    $('#uploadFile').change(function() {
+        var fileInput = document.getElementById("uploadFile");
+        var file = fileInput.files[0];
+        // var formData = new FormData();
+        var reader = new FileReader();
+        reader.readAsDataURL(file);//转化二进制流，异步方法
+        reader.onload = function(ev){//完成后this.result为二进制流
+            image = ev.target.result
+        }
+
+    })
+
+    function getUser(id, fc) {
+        iGet('/api/users/' + id, fc)
+    }
+
+    function getRoles(fc) {
+        iGet("/api/roles", fc);
+    }
+
+    function getTeacher(fc) {
+        iGet("/api/roles", fc);
+    }
+
+    var id = 0;
+
+
+    //select2
+    $(".select2").select2({
+        maximumSelectionLength: 10,
+        language: "zh-CN",
+    });
+
+    //选中某个标签
+    function selectTag(value) {
+        $(".select2").val(value).trigger('change');
+    }
+
+    function selectTeacher(value) {
+        $(".select1").val(value).trigger('change');
+    }
+
+
+    setTimeout(function() {
+        if (location.href.indexOf('#') > 0) {
+            id = location.href.split("#")[1];
+        }
+        //判断是否是更新操作
+        if (id == 0) {
+            $('#update').remove();
+        } else {
+            $('#add').remove();
+        }
+        //更新获取用户数据 --角色
+        if (id != 0) {
+            getUser(id, function(data) {
+                var user = Object.assign(data, data.details);
+                //设置input 此处没有用vue vue与inputmask有兼容性问题
+                for (var p in user) {
+                    if (p == 'status' || p == 'gender') {
+                        try {
+                            $("input:radio[value=" + user[p] + "]").attr('checked', 'true');
+                        } catch (e) {
+                            console.log("radio")
+                        }
+                    } else {
+                        $("input[name=" + p + "]").val(user[p]);
+                    }
+                }
+                getRoles(function(data) {
+                    var roles = []
+                    data.content.forEach(function(role) {
+                        roles.push({
+                            text: role.name,
+                            id: role.id
+                        });
+                    })
+                    $(".select2").select2({
+                        data: roles
+                    });
+                    var userRoles = []
+                    user.roleSet.forEach(function(role) {
+                        userRoles.push(role.id);
+                    })
+                    selectTag(userRoles);
+                })
+            });
+        } else {
+            getRoles(function(data) {
+                var roles = []
+                data.content.forEach(function(role) {
+                    roles.push({
+                        text: role.name,
+                        id: role.id
+                    });
+                })
+                $(".select2").select2({
+                    data: roles
+                });
+            })
+        }
+
+        //更新获取用户数据 -- 上级
+        if (id != 0) {
+            getUser(id, function(data) {
+                var user = Object.assign(data, data.details);
+                //设置input 此处没有用vue vue与inputmask有兼容性问题
+                for (var p in user) {
+                    if (p == 'status' || p == 'gender') {
+                        try {
+                            $("input:radio[value=" + user[p] + "]").attr('checked', 'true');
+                        } catch (e) {
+                            console.log("radio")
+                        }
+                    } else {
+                        $("input[name=" + p + "]").val(user[p]);
+                    }
+                }
+                getTeacher(function(data) {
+                    var roles = []
+                    data.content.forEach(function(role) {
+                        roles.push({
+                            text: role.name,
+                            id: role.id
+                        });
+                    })
+                    $(".select1").select2({
+                        data: roles
+                    });
+                    var userRoles = []
+                    user.roleSet.forEach(function(role) {
+                        userRoles.push(role.id);
+                    })
+                    selectTeacher(userRoles);
+                })
+            });
+        } else {
+            getTeacher(function(data) {
+                var roles = []
+                data.content.forEach(function(role) {
+                    roles.push({
+                        text: role.name,
+                        id: role.id
+                    });
+                })
+                $(".select1").select2({
+                    data: roles
+                });
+            })
+        }
+        //去掉有值的input标题效果
+        var inputs = $("#createForm input[type=text]");
+        for (var i = 0; i < inputs.length; i++) {
+            if ($(inputs[i]).val() != '') {
+                $(inputs[i]).parent().find('label').addClass('active');
+            }
+        }
+        //Money Euro
+        $("[data-mask]").inputmask();
+    }, 300)
+
+
+    function createSubmit() {
+        var data = {};
+        if (!image) {
+            alert("请上传您的头像！")
+            return
+        }
+        $('#createForm').serializeArray().map(function(x) {
+            data[x.name] = x.value;
+        });
+        var beforeSend = function() {
+                if (id == 0) {
+                    if ($('#loginName').val() == '') {
+                        $('#loginName').focus();
+                        return false;
+                    }
+                } else {
+                    if ($('#nickname').val() == '') {
+                        $('#nickname').focus();
+                        return false;
+                    }
+                }
+
+            }
+            // var roleIds = $(".select2").val();
+            // var roles = []
+            // if (roleIds) {
+            //     roleIds.forEach(function (role) {
+            //         roles.push({id: parseInt(role)});
+            //     });
+            // }
+            // data.roleSet = roles;
+        var success = function(result) {
+            createDialog.close();
+            $table.bootstrapTable('refresh');
+        }
+        var error = function(jqXHR, textStatus) {
+            $.confirm({
+                theme: 'dark',
+                animation: 'rotateX',
+                closeAnimation: 'rotateX',
+                title: false,
+                content: textStatus != 'canceled' ? '系统异常' : '请检查密码与用户名',
+                buttons: {
+                    confirm: {
+                        text: '确认',
+                        btnClass: 'waves-effect waves-button waves-light'
+                    }
+                }
+            });
+        }
+        let d = Object.assign({}, data, {
+            details: data
+        });
+        if (id == 0) {
+            iPost('/api/users', d, beforeSend, success, error);
+        } else {
+            iPut('/api/users/' + id, d, beforeSend, success, error);
+        }
+
+    }
+</script>

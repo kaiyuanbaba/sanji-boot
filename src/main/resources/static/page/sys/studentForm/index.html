@@ -1,0 +1,219 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>通用增删改查</title>
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/plugins/layer/layui.css" rel="stylesheet"/>
+    <link href="/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css"
+          rel="stylesheet"/>
+    <link href="/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet"/>
+
+    <link href="/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+
+    <!--select2-->
+    <link href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+
+    <link href="/app/css/common.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="main">
+<!--    <div id="toolbar">-->
+<!--        <a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i>-->
+<!--            新增用户</a>-->
+
+<!--        <a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i-->
+<!--                class="zmdi zmdi-close"></i> 删除用户</a>-->
+<!--    </div>-->
+    <div id="myChart" style="width: 100%;height:500px;"></div>
+</div>
+
+<script src="/plugins/jquery.1.12.4.min.js"></script>
+<script src="/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="https://lib.baomitu.com/echarts/4.6.0/echarts-en.common.min.js"></script>
+
+<!--给form使用-->
+<!-- select2 -->
+<script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
+<script src="https://cdn.bootcss.com/select2/4.0.3/js/i18n/zh-CN.js"></script>
+
+<!-- InputMask -->
+<script src="/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+<script src="/app/js/common.js"></script>
+<script src="/app/js/i-ajax.js"></script>
+<script>
+    function dataFn(){
+        $.ajax({
+            url: '/api/faceplate/findAttendManager',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                'requestParam':rd.commaddr,
+            },
+            complete: function(xhr, textStatus) {
+                //called when complete
+            },
+            success: function(data, textStatus, xhr) {
+                if(!data.code){
+                    chartFn(data.repMap)
+                }else{
+                    console.log(data && data.message)
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                // detailBox.unLoadMask();
+            }
+        });
+    }
+    chartFn();
+    function chartFn() {
+        var monthAlarmChart = echarts.init(document.getElementById('myChart'));
+        data = {
+            "code": 0,
+            "repMap": {
+                "20200501": 0,
+                "20200502": 0,
+                "20200503": 0,
+                "20200504": 0,
+                "20200505": 0,
+                "20200506": 0,
+                "20200507": 1,
+                "20200508": 1,
+                "20200509": 0,
+                "20200510": 0,
+                "20200511": 0,
+                "20200512": 0,
+                "20200513": 0,
+                "20200514": 0,
+                "20200515": 0,
+                "20200516": 0,
+                "20200517": 0,
+                "20200518": 0,
+                "20200519": 0,
+                "20200520": 0,
+                "20200521": 0,
+                "20200522": 0,
+                "20200523": 0,
+                "20200524": 0,
+                "20200525": 0,
+                "20200526": 0,
+                "20200527": 0,
+                "20200528": 0,
+                "20200529": 0,
+                "20200530": 0,
+                "20200531": 0
+            },
+            "message": ""
+        }
+        var YData = [],
+            XData = [];
+        for (key in data.repMap) {
+            XData.push(key.substr(0,4)+"年"+ key.substr(4,2) + "月" + key.substr(6,2) + "日")
+            YData.push(data.repMap[key])
+        }
+        var option = {
+            title: {
+                text: '考勤数',
+            },
+            tooltip: {
+                trigger: 'axis',
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: XData,
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        color: ['#0d1955'],
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        type: 'solid',
+                        color: '#163588', //左边线的颜色
+                        width: '2' //坐标线的宽度
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: '#f00', //坐标值得具体的颜色
+
+                    }
+                }
+            },
+            grid: {
+                show: 'true',
+                borderWidth: '0',
+                x: 50,
+                y: 30,
+                x2: 25,
+                y2: 20,
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        color: ['#0d1955'],
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        type: 'solid',
+                        color: '#163588', //左边线的颜色
+                        width: '2' //坐标线的宽度
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: '#f00', //坐标值得具体的颜色
+
+                    }
+                }
+            },
+            series: [{
+                name: '考勤次数',
+                data: YData,
+                type: 'line',
+                itemStyle: {
+                    normal: {
+                        areaStyle: {
+                            // type: 'default'
+                            color: ['rgba(250,250,250,0.3)', 'rgba(150,150,150,0.3)']
+                        },
+                        lineStyle: {
+                            color: '#f1637b'
+                        }
+                    }
+                },
+                areaStyle: {}
+            }]
+        };
+        monthAlarmChart.setOption(option)
+        $(window).on("resize", function() {
+            monthAlarmChart.resize();
+        });
+    }
+</script>
+</body>
+</html>
